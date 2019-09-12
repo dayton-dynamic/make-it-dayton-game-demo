@@ -1,0 +1,11 @@
+
+- [ ] Business cards
+- [ ] Flyer 
+- [ ] Insert for standing plastic sign 
+- [ ] Banner 
+- [ ] Two screens 
+- [ ] Coding suggestion cards & hints
+- [ ] Reset script 
+- [ ] Info on other events 
+- [ ] Chairs 
+- [ ] Snacks?

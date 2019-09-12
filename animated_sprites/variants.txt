@@ -1,0 +1,10 @@
+
+- Change speed 
+- Swivel blob: allow direction to change, but no motion 
+- Flee the pointer
+- gif editing - change color?
+- leave slime trail 
+- shortsighted blob 
+- divide and recombine 
+- move the mouse randomly when blob catches it 
+
