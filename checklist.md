@@ -1,4 +1,4 @@
-
+- [ ] Extension cord
 - [ ] Business cards
 - [ ] Flyer 
 - [ ] Insert for standing plastic sign 
