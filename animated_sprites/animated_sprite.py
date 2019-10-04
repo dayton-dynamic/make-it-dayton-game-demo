@@ -1,11 +1,14 @@
-# Copied from 
+# Copied from
 # https://github.com/ppb/pursuedpybear/blob/master/examples/animated_sprites/animated_sprite.py
 
 import math
+import random
+import time
 
 import ppb
-from ppb.features.animation import Animation
 import ppb.events as events
+from ppb.features.animation import Animation
+
 
 class Blob(ppb.BaseSprite):
     image = Animation("resources/blob_{0..6}.png", 10)
@@ -14,16 +17,41 @@ class Blob(ppb.BaseSprite):
 
     def on_mouse_motion(self, event: events.MouseMotion, signal):
         self.target = event.position
+        print(self.position)
 
     def on_update(self, event: events.Update, signal):
-        intent_vector = self.target - self.position
+        target = next(event.scene.get(tag="food"))
+        intent_vector = target.position - self.position
         if intent_vector:
             self.position += intent_vector.scale(self.speed * event.time_delta)
-            self.rotation = math.degrees(math.atan2(intent_vector.y, intent_vector.x)) - 90
+            self.rotation = (
+                math.degrees(math.atan2(intent_vector.y, intent_vector.x)) - 90
+            )
+
+
+class Food(ppb.BaseSprite):
+
+    BORED_IN_S = 4
+
+    image = ppb.Image("resources/apple.png")
+
+    def __init__(self, *arg, **kwarg):
+        self.last_moved = time.time()
+        return super().__init__(*arg, **kwarg)
+
+    def on_mouse_motion(self, event: events.MouseMotion, signal):
+        self.position = event.position
+        self.last_moved = time.time()
+
+    def on_update(self, event: events.Update, signal):
+        if time.time() - self.last_moved > self.BORED_IN_S:
+            self.position = ppb.Vector(random.random() * 4 - 2, random.random() * 4 - 2)
+            self.last_moved = time.time()
 
 
 def setup(scene):
-    scene.add(Blob())
+    scene.add(Food(), tags=["food"])
+    scene.add(Blob(), tags=["blob"])
 
 
 ppb.run(setup)
