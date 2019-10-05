@@ -14,6 +14,7 @@ class Blob(ppb.BaseSprite):
     image = Animation("resources/blob_{0..6}.png", 10)
     target = ppb.Vector(0, 0)
     speed = 1
+    repulsion = 0.5
 
     def on_mouse_motion(self, event: events.MouseMotion, signal):
         self.target = event.position
@@ -27,6 +28,17 @@ class Blob(ppb.BaseSprite):
             self.rotation = (
                 math.degrees(math.atan2(intent_vector.y, intent_vector.x)) - 90
             )
+        for sib in self.siblings(event):
+            repulsion_vector = sib.position - self.position
+            if repulsion_vector:
+                self.position -= repulsion_vector.scale(self.repulsion * event.time_delta)
+
+
+    def siblings(self, event):
+        for sprite in event.scene.get(kind=Blob):
+            if sprite != self:
+                yield sprite
+
 
 
 class Food(ppb.BaseSprite):
@@ -48,9 +60,10 @@ class Food(ppb.BaseSprite):
             self.position = ppb.Vector(random.random() * 4 - 2, random.random() * 4 - 2)
             self.last_moved = time.time()
 
-
 def setup(scene):
     scene.add(Food(), tags=["food"])
+    scene.add(Blob(), tags=["blob"])
+    scene.add(Blob(), tags=["blob"])
     scene.add(Blob(), tags=["blob"])
 
 

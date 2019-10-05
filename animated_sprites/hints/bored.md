@@ -1,32 +1,36 @@
 
-# Shortsighted blob (Medium)
+# Short attention span blob (Hard)
 
-What if the blob only seeks the pointer when it's 
-close enough?
+What if the blob gets bored after moving toward the 
+pointer for a few seconds, and quits?
 
 *Hint:*
 
-The `intent_vector` describes the direction and distnace 
-from the blob to the pointer.  It has a `length` attribute - 
-that is, you can find out how far the blob and pointer are 
-apart with 
+You'll need to keep track of how long it has been since 
+the pointer moved.  Python's `time.time()` function can do 
+it - it outputs the number of seconds in the "UNIX epoch", 
+so if you call `time.time()` once, store that value in a 
+variable, then call it again later, subtracting the new 
+value from the old one shows how many seconds went by.
 
-    intent_vector.length 
+You'll need to add an `import` statement at the top of the 
+file:
 
-The game window is about 4 units wide altogether.
+    import time 
 
-So how could you keep the blob from moving if the pointer 
-is too far away?  You'll probably use Python's `if` 
+Then, when the pointer is moved (do you see the 
+`on_mouse_motion` method?), use `time.time()` to store that 
+time in an "instance variable" - give it a name within `self`, 
+like `self.mouse_moved_at`.
+
+Now, before the blob actually moves, use `time.time()` again 
+to see if it's been too long since the mouse moved - to see 
+if it's gotten bored.  You'll need to use Python's `if` 
 statement, which looks like 
 
-    if intent_vector.length < 2:
-        print('It is not very far away')
-        print('I can almost smell it')
+    if (time.time() - self.mouse_moved_at < 3):
+        print("I'm not bored yet")
 
 The indentation is important!
-
-Can you adapt that to make sure the blob only swivels 
-and moves when the `intent_vector` is short?
-
 
 Then save the file, stop the game, and run the program again.

@@ -1,9 +1,14 @@
 
-# Change speed (Easy)
+# Scaredy-blob (Medium)
 
-Can you make the blob faster?  Slower?
+What if the blob runs away from the pointer instead of 
+toward it?
+
 
 *Hint:*
 
-Look for a variable named `speed`.  Change it, save the file, stop the game, and rerun it.
+Look for the place where the blob's position changes. 
+
+
+After making your change, save the file, stop the game, and rerun it.
 
