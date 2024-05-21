@@ -11,7 +11,7 @@ import ppb.events as events
 def random_pos():
     return ppb.Vector(random.random() * 4 - 2, random.random() * 4 -2)
 
-class Blob(ppb.BaseSprite):
+class Blob(ppb.Sprite):
     image = Animation("resources/blob_{0..6}.png", 10)
     target = ppb.Vector(0, 0)
     speed = 1
